@@ -7,7 +7,7 @@ import os
 from langchain_community.tools import DuckDuckGoSearchRun
 from duckduckgo_search import DDGS
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 @tool("News Searching Tool")
