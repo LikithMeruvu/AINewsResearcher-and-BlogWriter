@@ -9,6 +9,7 @@ from duckduckgo_search import DDGS
 
 # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 @tool("News Searching Tool")
 def news_search_tool(query: str):
@@ -47,7 +48,7 @@ class NewsAnalysisEngine:
 
         writer_agent = Agent(
             role='Writer',
-            goal='Identify all the topics received. Use the News DB Tool to fetch the articles, then use the Search tool for detailed exploration of each topic. Summarise the retrieved information in depth for every topic.',
+            goal='Identify all the topics received. Use the News search Tool to fetch the articles, then use the Search tool for detailed exploration of each topic. Summarise the retrieved information in depth for every topic.',
             backstory='Expert in crafting engaging narratives from complex information.',
             tools=[news_search_tool, self.search_tool],
             allow_delegation=True,
@@ -60,16 +61,17 @@ class NewsAnalysisEngine:
             description=f'Search for {query} related news and articles and create key points for each news.',
             agent=news_search_agent,
             tools=[self.search_tool,news_search_tool],
-            expected_output=f"Key points for each news article related to {query}"
+            expected_output=f"Key points and Long summary for each news article related to {query}"
         )
 
         writer_task = Task(
             description="""
             Go step by step:
-            Step 1: Identify all the topics received and fetach news articles.
+            Step 1: Identify all the topics received and fetch news articles.
             Step 2: Use the Search tool to search for information on each topic one by one.
             Step 3: Go through every topic and write an in-depth summary of the information retrieved no matter what it should be atleast 2000 words summary.
-            Don't skip any topic. and 2000 words summary important
+            Step 4: Your final Report Should be A detailed research Article on the News.
+            Don't skip any topic and Steps.
             """,
             agent=writer_agent,
             context=[news_search_task],
