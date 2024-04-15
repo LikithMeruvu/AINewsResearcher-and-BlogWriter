@@ -9,7 +9,6 @@ from duckduckgo_search import DDGS
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 @tool("News Searching Tool")
 def news_search_tool(query: str):
