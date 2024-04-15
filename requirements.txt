@@ -1,0 +1,9 @@
+crewai
+langchain-community
+langchain-openai
+requests
+duckduckgo-search
+chromadb
+google-generativeai
+langchain-groq
+streamlit
